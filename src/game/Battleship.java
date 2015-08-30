@@ -143,18 +143,7 @@ public class Battleship {
 				while (!isFree) {
 					isFree = true;
 					j = (int) (Math.random() * SIZE); // random column index
-					i = (int) (Math.random() * (SIZE - shipLength)); // random
-																		// row
-																		// index
-																		// which
-																		// must
-																		// have
-																		// enough
-																		// room
-																		// to
-																		// place
-																		// the
-																		// ship
+					i = (int) (Math.random() * (SIZE - shipLength)); // random row index which must have enough room to place the ship
 
 					// check if there is free space to place the ship
 					// if there isn't loop again
