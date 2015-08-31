@@ -50,9 +50,9 @@ public class PlayAGame {
 	 * printing game header
 	 */
 	public static void printHeader(){
-		System.out.println("*************************");
-		System.out.println("*\tBattleships v1 \t*");
-		System.out.println("*************************");
+		System.out.println("*******************************");
+		System.out.println("*\tBattleship v1\t      *");
+		System.out.println("*******************************");
 		System.out.println();
 	}
 	public static void main(String[] args) {

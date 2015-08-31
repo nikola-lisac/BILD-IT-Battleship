@@ -10,14 +10,13 @@ public class Battleship {
 
 	private static final int SIZE = 10; // number of rows and number of columns on the boards
 	private char[][] computerBoard; // computer's board
-	private char[][] computersHitsAndMissesBoard;
-	private char[][] usersHitsAndMissesBoard; // computer's board with hidden locations of the chips
+	private char[][] computersHitsAndMissesBoard; // computer's board with markers of hits and misses
+	private char[][] usersHitsAndMissesBoard; // computer's board with hidden locations of the ships
 	private char[][] userBoard; // user's board
-
 	private int userHitCount; // user's counter of hits
 	private int computerHitCount; // computer's counter of hits
-	private final char HIT = 'H';
-	private final char MISS = 'X';
+	private final char HIT = 'H'; // hit marker
+	private final char MISS = 'X'; // miss marker
 
 	/** default constructor */
 	Battleship() {
@@ -32,7 +31,7 @@ public class Battleship {
 	}
 
 	/**
-	 * Initialize boards Fill computer's board and user's board with spaces
+	 * Initialize boards Fill computer's boards and user's boards with spaces
 	 */
 	public void initBoards() {
 		for (int i = 0; i < SIZE; i++) {
@@ -50,12 +49,13 @@ public class Battleship {
 	 */
 	public void printBoards() {
 		System.out.println();
-		System.out.println("\t     Computers's board\t\t\t\t\t\tUser's board");
+		System.out.println("\t     Computers's board\t\t\t\t\t\tUser's board\n");
+		System.out.println("    0   1   2   3   4   5   6   7   8   9\t\t    0   1   2   3   4   5   6   7   8   9");
 		System.out.println(
-				"--------------------------------------------------------------------------------------------------");
+				"---------------------------------------------------------------------------------------------------");
 
 		for (int i = 0; i < SIZE; i++) {
-
+			System.out.print(i);
 			// print row for display board
 			for (int j = 0; j < SIZE; j++) {
 				System.out.print(" | " + usersHitsAndMissesBoard[i][j]);
@@ -72,7 +72,7 @@ public class Battleship {
 			System.out.println();
 		}
 		System.out.println(
-				"--------------------------------------------------------------------------------------------------");
+				"---------------------------------------------------------------------------------------------------");
 
 	}
 
@@ -100,17 +100,7 @@ public class Battleship {
 				while (!isFree) {
 					isFree = true;
 					i = (int) (Math.random() * SIZE); // random row index
-					j = (int) (Math.random() * (SIZE - shipLength)); // random
-																		// column
-																		// which
-																		// must
-																		// have
-																		// enough
-																		// room
-																		// to
-																		// place
-																		// the
-																		// ship
+					j = (int) (Math.random() * (SIZE - shipLength)); // random column which must have enough room to place the ship
 
 					// check if there is enough space in the row to place the
 					// ship
@@ -143,7 +133,7 @@ public class Battleship {
 				while (!isFree) {
 					isFree = true;
 					j = (int) (Math.random() * SIZE); // random column index
-					i = (int) (Math.random() * (SIZE - shipLength)); // random row index which must have enough room to place the ship
+					i = (int) (Math.random() * (SIZE - shipLength)); // random row index which  must have enough room to place the ship
 
 					// check if there is free space to place the ship
 					// if there isn't loop again
@@ -164,10 +154,10 @@ public class Battleship {
 			shipLength--;
 		} while (shipLength > 1);
 	}
-	
+
 	/**
-	 * User is placing his ships by entering the direction 
-	 * and indices of the row and column where he want the ship to start
+	 * User is placing his ships by entering the direction and indices of the
+	 * row and column where he want the ship to start
 	 */
 	public void usersShipsPlacements() {
 		System.out.println("Place the ships wherever you want, game is starting as soon as you're done.");
@@ -175,29 +165,35 @@ public class Battleship {
 		do {
 			System.out.println("Placing the ship with the length: " + shipLength);
 			System.out.println("Enter the direction of the placement (H - horizontal, V - vertical): ");
-			char direction = InputClass.inputChar(); // getting direction character
-			
-			//if the direction is horizontal
+			char direction = InputClass.inputChar(); // getting direction
+														// character
+
+			// if the direction is horizontal
 			if (direction == 'H') {
 				int i = 0;
 				int j = 0;
 				boolean isFree = false;
-				
-				// loop until the position the user enters is available for placing the ship
+
+				// loop until the position the user enters is available for
+				// placing the ship
 				while (!isFree) {
 					isFree = true;
 					boolean isOk = false;
-					
-					// loop until the user enters the position where the ship can be placed if the slots aren't occupied
+
+					// loop until the user enters the position where the ship
+					// can be placed if the slots aren't occupied
 					while (!isOk) {
 						isOk = true;
-						
+
 						System.out.print("Enter row number (0 - 9): ");
-						i = InputClass.inputInt(); // getting an integer from protected input nethod
+						i = InputClass.inputInt(); // getting an integer from
+													// protected input nethod
 						System.out.print("Enter column number (0 - " + (SIZE - shipLength) + "): ");
-						j = InputClass.inputInt(); // getting an integer from protected input nethod
-						
-						// if the entered column index is bigger than this value, the ship is out of bounds
+						j = InputClass.inputInt(); // getting an integer from
+													// protected input nethod
+
+						// if the entered column index is bigger than this
+						// value, the ship is out of bounds
 						if (j > SIZE - shipLength) {
 							System.out.println("There isn't enough available space to place the ship.");
 							System.out.println("Try again: ");
@@ -206,7 +202,7 @@ public class Battleship {
 						}
 
 					}
-					
+
 					// check if there is available space in the row to place the
 					// ship
 					// if there isn't loop again
@@ -229,28 +225,32 @@ public class Battleship {
 
 				}
 			}
-			
+
 			// if direction is vertical
 			else {
 				int i = 0; // column number
 				int j = 0; // row number
 				boolean isFree = false;
-				
-				// loop until the user enters the position where the ship can be placed if the slots aren't occupied
+
+				// loop until the user enters the position where the ship can be
+				// placed if the slots aren't occupied
 				while (!isFree) {
 					isFree = true;
 					boolean isOk = false;
-					
-					// loop until the user enters the position where the ship can be placed if the slots aren't occupied
+
+					// loop until the user enters the position where the ship
+					// can be placed if the slots aren't occupied
 					while (!isOk) {
 						isOk = true;
-						
+
 						System.out.print("Enter column number (0 - 9): ");
-						i = InputClass.inputInt(); // getting an integer from keyboard
-						System.out.print("Enter row number (0 - "+(SIZE-shipLength)+"): ");
+						i = InputClass.inputInt(); // getting an integer from
+													// keyboard
+						System.out.print("Enter row number (0 - " + (SIZE - shipLength) + "): ");
 						j = InputClass.inputInt();
 
-						// if entered row index is greater than this value, the ship is out of bounds of the board
+						// if entered row index is greater than this value, the
+						// ship is out of bounds of the board
 						if (j > SIZE - shipLength) {
 							System.out.println("There isn't enough available space to place the ship.");
 							System.out.println("Try again: ");
@@ -258,8 +258,9 @@ public class Battleship {
 							isOk = false;
 						}
 					}
-					
-					// checking if the entered position is free to place the ship
+
+					// checking if the entered position is free to place the
+					// ship
 					for (int k = j; k < j + shipLength; k++) {
 						if (userBoard[k][i] != ' ') {
 							isFree = false;
@@ -278,7 +279,8 @@ public class Battleship {
 				}
 			}
 			System.out.println("The ship has been placed.");
-			printUserBoard(); // printing the board so the user can see where did he put his ship
+			printUserBoard(); // printing the board so the user can see where
+								// did he put his ship
 			shipLength--;
 
 		} while (shipLength > 1);
@@ -430,7 +432,7 @@ public class Battleship {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Printing the user's board
 	 */
@@ -443,5 +445,6 @@ public class Battleship {
 			System.out.print(" |");
 			System.out.println();
 		}
+		System.out.println(" -----------------------------------------");
 	}
 }
